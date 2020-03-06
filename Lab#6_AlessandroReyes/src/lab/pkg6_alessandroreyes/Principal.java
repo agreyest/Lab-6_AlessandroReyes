@@ -36,6 +36,9 @@ public class Principal extends javax.swing.JFrame {
         for (int i = 0; i < usuarios.size(); i++) {
             System.out.println(usuarios.get(i).getUsuario() +" "+ usuarios.get(i).getContraseña());
         }
+//        char m = 'w';
+//        int a = (int) m;
+//        System.out.println(a);
     }
 
     /**
@@ -154,6 +157,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btn_crearc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        ta_conv.setEditable(false);
         ta_conv.setColumns(20);
         ta_conv.setRows(5);
         ta_conv.setText("Conversacion:\n");
@@ -167,8 +171,18 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jl_contacts);
 
         btn_send.setText("Send");
+        btn_send.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_sendMouseClicked(evt);
+            }
+        });
 
         btn_conv_r.setText("Regresar");
+        btn_conv_r.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_conv_rMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jd_convLayout = new javax.swing.GroupLayout(jd_conv.getContentPane());
         jd_conv.getContentPane().setLayout(jd_convLayout);
@@ -359,7 +373,7 @@ public class Principal extends javax.swing.JFrame {
             jd_conv.setVisible(true);
         }else{
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrecta.");
-            tf_user.setText("");
+            //tf_user.setText("");
             pf_pw.setText("");
         }
     }//GEN-LAST:event_btn_loginMouseClicked
@@ -371,6 +385,102 @@ public class Principal extends javax.swing.JFrame {
         this.pack();
         this.setLocationRelativeTo(this);
     }//GEN-LAST:event_btn_crear_rMouseClicked
+
+    private void btn_sendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_sendMouseClicked
+        String ay = ta_msj.getText();
+        String[] tokens = ay.split(" ");
+        char a = '0';
+        for (int i = 0; i < tokens.length; i++) {
+            if(Character.isDigit(tokens[i].charAt(0))){
+                a = tokens[i].charAt(0);
+            }
+        }
+        int n;
+        String m="easyCypher: ";
+        
+        ta_conv.setText(ta_conv.getText()+ "\n"+ tf_user.getText() + ": "+ ay);
+        
+        if(a == '1'){
+            for (int i = 0; i < tokens.length-1; i++) {
+                String t = tokens[i];
+                int nm=0;
+                if(t.length() <=3){
+                    m = m + t + "way ";
+                }else if(t.length() > 3){
+                    for (int j = 0; j < t.length(); j++) {
+                        if(t.charAt(j) == 'a' || t.charAt(j) == 'e' || t.charAt(j) == 'i' || t.charAt(j) == 'o' || 
+                                t.charAt(j) == 'u'){
+                            nm=j;
+                            break;
+                        }
+                    }
+                    for (int j = nm; j < t.length(); j++) {
+                        m = m + t.charAt(j);
+                    }
+                    for (int j = 0; j < nm; j++) {
+                        m = m + t.charAt(j);
+                    }
+                    
+                    m = m + "ay ";
+                }
+            }
+            ta_conv.setText(ta_conv.getText()+ "\n"+ m);
+        }else if(a == '2'){
+            for (int i = 0; i < ay.length(); i++) {
+                if(i < ay.length()-2){
+                    n = ay.charAt(i);
+                    m = m + Integer.toString(n)+" ";
+                }
+            }
+            ta_conv.setText(ta_conv.getText()+ "\n"+ m);
+        }else if(a == '3'){
+            
+            for (int i = 0; i < ay.length(); i++) {
+                int k = ay.charAt(i);
+                int ñ = 1;
+                if(k >= 97 && k <= 122){
+                    if(k >= 110){
+                        int te = k-110;
+                        ñ += te;
+                        te = 110 -ñ;
+                        char w = (char)te;
+                        m = m + w;
+                    }else if(k <= 109){
+                        int te = 109-k;
+                        ñ += te;
+                        te = 109 + ñ;
+                        char w = (char)te;
+                        m = m + w;
+                    }
+                }else if(k >= 65 && k <= 90){
+                    if(k >= 78){
+                        int te = k-78;
+                        ñ += te;
+                        te = 78 -ñ;
+                        char w = (char)te;
+                        m = m + w;
+                    }else if(k <= 77){
+                        int te = 77-k;
+                        ñ += te;
+                        te = 77 + ñ;
+                        char w = (char)te;
+                        m = m + w;
+                    }
+                }else if(k == 32){
+                    m = m + " ";
+                } 
+            }
+            ta_conv.setText(ta_conv.getText()+ "\n"+ m);
+        }else if(a == '4'){
+            
+        }else if(a != '1' && a != '2' && a != '3' && a != '4'){
+            ta_conv.setText(ta_conv.getText()+ "\n"+ ay);
+        }
+    }//GEN-LAST:event_btn_sendMouseClicked
+
+    private void btn_conv_rMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_conv_rMouseClicked
+        
+    }//GEN-LAST:event_btn_conv_rMouseClicked
 
     /**
      * @param args the command line arguments
