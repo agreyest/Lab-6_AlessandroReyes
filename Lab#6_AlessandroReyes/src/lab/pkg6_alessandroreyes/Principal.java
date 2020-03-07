@@ -452,27 +452,87 @@ public class Principal extends javax.swing.JFrame {
                         char w = (char)te;
                         m = m + w;
                     }
-                }else if(k >= 65 && k <= 90){
-                    if(k >= 78){
-                        int te = k-78;
+                } else if (k >= 65 && k <= 90) {
+                    if (k >= 78) {
+                        int te = k - 78;
                         ñ += te;
-                        te = 78 -ñ;
-                        char w = (char)te;
+                        te = 78 - ñ;
+                        char w = (char) te;
                         m = m + w;
-                    }else if(k <= 77){
-                        int te = 77-k;
+                    } else if (k <= 77) {
+                        int te = 77 - k;
                         ñ += te;
                         te = 77 + ñ;
-                        char w = (char)te;
+                        char w = (char) te;
                         m = m + w;
                     }
-                }else if(k == 32){
+                } else if (k == 32) {
                     m = m + " ";
-                } 
+                }
             }
-            ta_conv.setText(ta_conv.getText()+ "\n"+ m);
-        }else if(a == '4'){
+            ta_conv.setText(ta_conv.getText() + "\n" + m);
+        } else if (a == '4') {
+            String q = tokens[tokens.length - 1];
+            int u = 0;
+            String tem = "";
+            for (int i = 0; i < tokens.length-2; i++) {
+                for (int j = 0; j < tokens[i].length(); j++) {
+                    u++;
+                    tem = tem + tokens[i].charAt(j);
+                }
+            }
+            int cont = 0;
+            int div = u / 4;
+            char[][] matris = new char[q.length()][div + 1];
+            for (int i = 0; i < q.length(); i++) {
+                for (int j = 0; j < matris[0].length; j++) {
+                    if(cont < u){
+                        matris[i][j] = tem.charAt(cont);
+                        cont++;
+                    }else
+                        matris[i][j] = ' ';
+                }
+            }
+            int[] id = new int[q.length()];
+            for (int i = 0; i < q.length(); i++) {
+                id[i] = (int) q.charAt(i);
+            }
+            int temp;
+            boolean is_sorted;
+            for (int i = 0; i < id.length; i++) {
+                is_sorted = true;
+                for (int j = 1; j < (id.length - i); j++) {
+                    if (id[j - 1] > id[j]) {
+                        temp = id[j - 1];
+                        id[j - 1] = id[j];
+                        id[j] = temp;
+                        is_sorted = false;
+                    }
+
+                }
+                if (is_sorted) {
+                    break;
+                }
+            }
             
+            String r = "";
+            for (int i = 0; i < id.length; i++) {
+                for (int j = 0; j < q.length(); j++) {
+                    System.out.println("asodjaosd: "+(int) q.charAt(j));
+                    System.out.println("id: "+ id[i]);
+                    if(id[i] == (int) q.charAt(j)){
+                        for (int k = 0; k < matris[0].length; k++) {
+                            r = r + matris[k][j];
+                            System.out.println("matris[j][k]: "+matris[j][k]);
+                        }
+                        System.out.println("Bkrea;");
+                        break;
+                    }
+                }
+            }
+            String up = r.toUpperCase();
+            m = m + up;
+            ta_conv.setText(ta_conv.getText()+ "\n"+ m);
         }else if(a != '1' && a != '2' && a != '3' && a != '4'){
             ta_conv.setText(ta_conv.getText()+ "\n"+ ay);
         }
