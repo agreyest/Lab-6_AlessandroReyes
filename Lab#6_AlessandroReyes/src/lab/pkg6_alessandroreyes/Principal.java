@@ -483,8 +483,8 @@ public class Principal extends javax.swing.JFrame {
             }
             int cont = 0;
             int div = u / 4;
-            char[][] matris = new char[q.length()][div + 1];
-            for (int i = 0; i < q.length(); i++) {
+            char[][] matris = new char[div + 1][q.length()];
+            for (int i = 0; i < matris.length; i++) {
                 for (int j = 0; j < matris[0].length; j++) {
                     if(cont < u){
                         matris[i][j] = tem.charAt(cont);
@@ -493,8 +493,8 @@ public class Principal extends javax.swing.JFrame {
                         matris[i][j] = ' ';
                 }
             }
-            int[] id = new int[q.length()];
-            for (int i = 0; i < q.length(); i++) {
+            int[] id = new int[q.length()-1];
+            for (int i = 0; i < q.length()-1; i++) {
                 id[i] = (int) q.charAt(i);
             }
             int temp;
@@ -514,18 +514,20 @@ public class Principal extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+            for (int i = 0; i < matris.length; i++) {
+                for (int j = 0; j < matris[0].length; j++) {
+                    System.out.print("["+matris[i][j]+"]");
+                }
+                System.out.println("");
+            }
             String r = "";
             for (int i = 0; i < id.length; i++) {
-                for (int j = 0; j < q.length(); j++) {
-                    System.out.println("asodjaosd: "+(int) q.charAt(j));
-                    System.out.println("id: "+ id[i]);
+                for (int j = 0; j < matris[0].length; j++) {
                     if(id[i] == (int) q.charAt(j)){
-                        for (int k = 0; k < matris[0].length; k++) {
+                        for (int k = 0; k < matris.length; k++) {
                             r = r + matris[k][j];
-                            System.out.println("matris[j][k]: "+matris[j][k]);
                         }
-                        System.out.println("Bkrea;");
+                        System.out.println("break");
                         break;
                     }
                 }
